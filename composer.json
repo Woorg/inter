@@ -1,0 +1,37 @@
+{
+    "name": "sergey/zdorovaya-natciya",
+    "autoload": {
+        "psr-4": {
+            "Sergey\\ZdorovayaNatciya\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Igor Gorlov",
+            "email": "gorlov35@gmail.com"
+        }
+    ],
+    "repositories":[
+        {
+            "type":"composer",
+            "url":"https://wpackagist.org"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "roots/soil": "^4.1",
+        "composer/installers": "^2.2"
+    },
+    "extra": {
+        "installer-paths": {
+            "wp-content/plugins/{$name}/": ["type:wordpress-plugin"],
+            "wp-content/themes/{$name}/": ["type:wordpress-theme"]
+        },
+        "wordpress-install-dir": "inder"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}

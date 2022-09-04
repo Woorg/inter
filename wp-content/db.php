@@ -1,0 +1,1 @@
+/var/www/inder/wp-content/plugins/query-monitor/wp-content/db.php
