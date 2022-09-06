@@ -1,11 +1,11 @@
 module.exports = {
     "postcss": [
-        {
-            "name": "flex-gap-polyfill",
-            "options": {
-                "webComponents": false
-            }
-        }
+        // {
+        //     "name": "flex-gap-polyfill",
+        //     "options": {
+        //         "webComponents": false
+        //     }
+        // }
     ],
     "svg": {
         "active": true,

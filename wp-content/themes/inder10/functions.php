@@ -81,7 +81,7 @@ add_theme_support('sage');
 
 function app_path()
 {
-    $app_path = get_theme_root_uri() . '/vateko10/app';
+    $app_path = get_theme_root_uri() . '/inder10/app';
     return $app_path;
 }
 

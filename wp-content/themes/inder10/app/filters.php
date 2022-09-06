@@ -21,7 +21,7 @@ add_filter('excerpt_more', function () {
 
 add_filter('nav_menu_css_class', function ( $classes, $item, $args ) {
 
-    $classes[] = 'nav__item';
+    $classes[] = 'rd-nav-item';
     return $classes;
 
 }, 1, 3);
@@ -33,7 +33,7 @@ add_filter('nav_menu_css_class', function ( $classes, $item, $args ) {
 
 add_filter('nav_menu_link_attributes', function ( $atts, $item, $args, $depth ) {
 
-    $atts['class'] = 'nav__link';
+    $atts['class'] = 'rd-nav-link';
     return $atts;
 
 }, 10, 4);
