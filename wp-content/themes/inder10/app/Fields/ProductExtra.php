@@ -61,6 +61,7 @@ class ProductExtra extends Field
                 ])
 
             ->endRepeater()
+
             ->addText('product_button_url', [
                 'label' => 'Url кнопки',
                 'instructions' => '',

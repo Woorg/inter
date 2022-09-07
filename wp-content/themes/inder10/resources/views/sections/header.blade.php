@@ -6,7 +6,6 @@
   $phone            = get_field('phone', 'option');
 @endphp
 
-
 <header class="section page-header">
   <!--RD Navbar-->
   <div class="rd-navbar-wrap rd-navbar-wrap-absolute">

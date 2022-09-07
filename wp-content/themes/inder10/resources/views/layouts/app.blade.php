@@ -1,7 +1,7 @@
-<a class="offscreen skip-to-content" href="#main">
+{{-- <a class="offscreen skip-to-content " href="#main">
   {{ __('Skip to content') }}
 </a>
-
+ --}}
 @include('sections.header')
 
   <main id="main" class="main">

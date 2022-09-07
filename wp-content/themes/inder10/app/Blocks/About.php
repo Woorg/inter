@@ -15,7 +15,7 @@ class About extends Block
          *
          * @var string
          */
-        $this->name = __('О эковате', 'sage');
+        $this->name = __('About me - main page', 'sage');
 
         /**
          * The block slug.
@@ -100,45 +100,16 @@ class About extends Block
          * @var array
          */
         $this->supports = [
-            'align' => true,
+            'align' => false,
             'align_text' => false,
             'align_content' => false,
             'full_height' => false,
             'anchor' => false,
             'mode' => false,
-            'multiple' => true,
+            'multiple' => false,
             'jsx' => true,
         ];
 
-        /**
-         * The block styles.
-         *
-         * @var array
-         */
-        // $this->styles = [
-        //     [
-        //         'name' => 'light',
-        //         'label' => 'Light',
-        //         'isDefault' => true,
-        //     ],
-        //     [
-        //         'name' => 'dark',
-        //         'label' => 'Dark',
-        //     ]
-        // ];
-
-        /**
-         * The block preview example data.
-         *
-         * @var array
-         */
-        // $this->example = [
-        //    'items' => [
-        //        ['item' => 'Item one'],
-        //        ['item' => 'Item two'],
-        //        ['item' => 'Item three'],
-        //    ],
-        // ];
 
         parent::__construct($app);
     }
@@ -151,10 +122,16 @@ class About extends Block
     public function with()
     {
         return [
-            'about_title' => $this->about_title(),
-            'about_subtitle' => $this->about_subtitle(),
-            'about_text' => $this->about_text(),
-            'about_image' => $this->about_image(),
+            'title' => $this->title(),
+            'text' => $this->text(),
+            'subtitle' => $this->subtitle(),
+            'list' => $this->list(),
+            'list_icon' => $this->list_icon(),
+            'list_title' => $this->list_title(),
+            'list_text' => $this->list_text(),
+            'link' => $this->link(),
+            'link_text' => $this->link_text(),
+
         ];
     }
 
@@ -168,34 +145,61 @@ class About extends Block
         $about = new FieldsBuilder('about');
 
         $about
-            ->addTextarea('about_title', [
-                'label' => 'Заголовок',
-                'rows' => '2',
-                'new_lines' => 'br', // Possible values are 'wpautop', 'br', or ''.
-            ])
-            ->addTextarea('about_subtitle', [
-                'label' => 'Подзаголовок',
-                'rows' => '2',
-                'new_lines' => 'br', // Possible values are 'wpautop', 'br', or ''.
-            ])
-            ->addWysiwyg('about_text', [
-                'label' => 'Текст',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
+            ->addText('title', [
+                'label' => 'Title',
                 'wrapper' => [
-                    'width' => '',
-                    'class' => '',
-                    'id' => '',
-                ],
-                'default_value' => '',
-                'tabs' => 'all',
-                'toolbar' => 'full',
-                'media_upload' => 0,
-                'delay' => 1,
+                    'width' => '30',
+                ]
             ])
-            ->addImage('about_image', [
-                'label' => 'Изображение',
+            ->addTextarea('text', [
+                'label' => 'Text',
+                'wrapper' => [
+                    'width' => '70',
+                ],
+                'rows' => '2',
+                'new_lines' => '',
+            ])
+            ->addText('subtitle', [
+                'label' => 'Subtitle',
+                'wrapper' => [
+                    'width' => '30',
+                ],
+            ])
+            ->addRepeater('list', [
+                'label' => 'Services',
+                'instructions' => '',
+                'wrapper' => [
+                    'width' => '70',
+                ],
+                'collapsed' => 'list_title',
+                'layout' => 'block',
+                'button_label' => '',
+            ])
+            ->addText('list_icon', [
+                'label' => 'Icon',
+                'wrapper' => [
+                    'width' => '20',
+                ],
+            ])
+            ->addText('list_title', [
+                'label' => 'Title',
+                'wrapper' => [
+                    'width' => '20',
+                ],
+            ])
+            ->addTextarea('list_text', [
+                'label' => 'Text',
+                'wrapper' => [
+                    'width' => '60',
+                ],
+                'rows' => '2',
+            ])
+
+            ->endRepeater()
+
+            ->addPageLink('link', [
+                'label' => 'Button Link',
+                'type' => 'page_link',
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => [],
@@ -204,17 +208,19 @@ class About extends Block
                     'class' => '',
                     'id' => '',
                 ],
-                'return_format' => 'id',
-                'preview_size' => 'thumbnail',
-                'library' => 'all',
-                'min_width' => '',
-                'min_height' => '',
-                'min_size' => '',
-                'max_width' => '',
-                'max_height' => '',
-                'max_size' => '',
-                'mime_types' => '',
+                'post_type' => [],
+                'taxonomy' => [],
+                'allow_null' => 0,
+                'allow_archives' => 1,
+                'multiple' => 0,
+            ])
+            ->addText('link_text', [
+                'label' => 'Button text',
+                'wrapper' => [
+                    'width' => '50',
+                ],
             ]);
+
         return $about->build();
     }
 
@@ -223,24 +229,49 @@ class About extends Block
      *
      * @return array
      */
-    public function about_title()
+    public function title()
     {
-        return get_field('about_title');
+        return get_field('title');
     }
 
-    public function about_subtitle()
+    public function text()
     {
-        return get_field('about_subtitle');
+        return get_field('text');
     }
 
-    public function about_text()
+    public function subtitle()
     {
-        return get_field('about_text');
+        return get_field('subtitle');
     }
 
-    public function about_image()
+    public function list()
     {
-        return get_field('about_image');
+        return get_field('list');
+    }
+
+    public function list_icon()
+    {
+        return get_field('list_icon');
+    }
+
+    public function list_title()
+    {
+        return get_field('list_title');
+    }
+
+    public function list_text()
+    {
+        return get_field('list_text');
+    }
+
+    public function link()
+    {
+        return get_field('link');
+    }
+
+    public function link_text()
+    {
+        return get_field('link_text');
     }
 
     /**
@@ -250,6 +281,7 @@ class About extends Block
      */
     public function enqueue()
     {
-        //
+
+
     }
 }

@@ -38,7 +38,7 @@
             materialParallax:        $('.parallax-container'),
             owl:                     $('.owl-carousel'),
             popover:                 $('[data-toggle="popover"]'),
-            preloader:               $('.preloader'),
+            // preloader:               $('.preloader'),
             rdNavbar:                $('.rd-navbar'),
             rdMailForm:              $('.rd-mailform'),
             rdInputLabel:            $('.form-label'),
