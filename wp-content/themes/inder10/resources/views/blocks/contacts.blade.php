@@ -38,7 +38,7 @@
           </div>
         </form> --}}
         @if ($form)
-        {!! $form !!}
+        {!! do_shortcode($form) !!}
         @endif
       </div>
 

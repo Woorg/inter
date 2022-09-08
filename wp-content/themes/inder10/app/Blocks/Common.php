@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Portfolio extends Block
+class Common extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class Portfolio extends Block
          *
          * @var string
          */
-        $this->name = __('My Portfolio', 'sage');
+        $this->name = __('Common', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'portfolio';
+        $this->slug = 'common';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple Portfolio block.', 'sage');
+        $this->description = __('A simple Common block.', 'sage');
 
         /**
          * The block category.
@@ -71,7 +71,7 @@ class Portfolio extends Block
          *
          * @var string
          */
-        $this->mode = 'edit';
+        $this->mode = 'preview';
 
         /**
          * The default block alignment.
@@ -100,7 +100,7 @@ class Portfolio extends Block
          * @var array
          */
         $this->supports = [
-            'align' => false,
+            'align' => true,
             'align_text' => false,
             'align_content' => false,
             'full_height' => false,
@@ -116,11 +116,15 @@ class Portfolio extends Block
          * @var array
          */
 
+        $this->styles = [];
+
         /**
          * The block preview example data.
          *
          * @var array
          */
+
+        $this->example = [];
 
         parent::__construct($app);
     }
@@ -133,11 +137,7 @@ class Portfolio extends Block
     public function with()
     {
         return [
-            'title' => $this->title(),
-            'subtitle' => $this->subtitle(),
-            'cases' => $this->cases(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
+            // 'message_field' => $this->message_field(),
         ];
     }
 
@@ -148,68 +148,25 @@ class Portfolio extends Block
      */
     public function fields()
     {
-        $portfolio_page = new FieldsBuilder('portfolio_page');
+        $common = new FieldsBuilder('common');
 
-        $portfolio_page
-            ->addText('title', [
-                'label' => 'Title',
-                'wrapper' => [
-                    'width' => '50',
-                ]
-            ])
-            ->addText('subtitle', [
-                'label' => 'subTitle',
-                'wrapper' => [
-                    'width' => '50',
-                ]
-            ])
-            ->addRelationship('cases', [
-                'label' => 'Cases',
+        $common
+            ->addMessage('message_field', 'message', [
+                'label' => 'Add blocks here',
                 'instructions' => '',
                 'required' => 0,
+                'conditional_logic' => [],
                 'wrapper' => [
                     'width' => '',
                     'class' => '',
                     'id' => '',
                 ],
-                'post_type' => ['case'],
-                'taxonomy' => [],
-                'filters' => [
-                    0 => 'search',
-                    1 => 'post_type',
-                    2 => 'taxonomy',
-                ],
-                'elements' => '',
-                'min' => '',
-                'max' => '',
-                'return_format' => 'id',
-            ])
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
-                'wrapper' => [
-                    'width' => '50',
-                    'class' => '',
-                    'id' => '',
-                ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
-            ])
-            ->addText('link_text', [
-                'label' => 'Button text',
-                'wrapper' => [
-                    'width' => '50',
-                ],
+                'message' => ' ',
+                'new_lines' => 'wpautop', // 'wpautop', 'br', '' no formatting
+                'esc_html' => 1,
             ]);
 
-        return $portfolio_page->build();
+        return $common->build();
     }
 
     /**
@@ -217,29 +174,9 @@ class Portfolio extends Block
      *
      * @return array
      */
-    public function title()
+    public function message_field()
     {
-        return get_field('title');
-    }
-
-    public function subtitle()
-    {
-        return get_field('subtitle');
-    }
-
-    public function cases()
-    {
-        return get_field('cases');
-    }
-
-    public function link()
-    {
-        return get_field('link');
-    }
-
-    public function link_text()
-    {
-        return get_field('link_text');
+        return get_field('message_field');
     }
 
     /**

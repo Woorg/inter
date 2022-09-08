@@ -29,9 +29,9 @@
           // setup_postdata( $post );
           $inner_div = '<article class="thumbnail-modern">';
           $thumb_id = get_field('case_thumb', $post );
+
         @endphp
 
-        {{-- @dump($post) --}}
 
         @if ($loop->parent->even)
           @php
@@ -57,7 +57,6 @@
         </div>
 
       @endforeach
-      {{-- @php(wp_reset_postdata()) --}}
 
       </div>
     @endforeach
@@ -65,14 +64,22 @@
 
     @endif
 
+    @php
+      wp_reset_postdata()
+    @endphp
+
     <div class="row row-md">
 
-      @if ($link)
-      <div class="col offset-xl-3"><a class="btn btn-icon-arrow btn-primary btn-icon-right" href="{{ $link }}">
-          <svg class="icon-fill" width="37" height="10" viewBox="0 0 37 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M31.225 7.284L30.509 7.9821L31.9052 9.4141L32.6212 8.716L31.225 7.284ZM35 5L35.6981 5.716L36.4325 5L35.6981 4.284L35 5ZM32.6212 1.284L31.9052 0.5859L30.509 2.0179L31.225 2.716L32.6212 1.284ZM32.6212 8.716L35.6981 5.716L34.3019 4.284L31.225 7.284L32.6212 8.716ZM35.6981 4.284L32.6212 1.284L31.225 2.716L34.3019 5.716L35.6981 4.284ZM35 4H0V6H35V4ZM0 6H25V4H0V6Z"></path>
-          </svg>{{ $link_text }}</a></div>
-      @endif
+        @php
+          $link = is_front_page() ? $link = get_permalink( $link ) : $link;
+        @endphp
+
+        <div class="col offset-xl-3"><a class="btn btn-icon-arrow btn-primary btn-icon-right" href="{{ $link }}">
+            <svg class="icon-fill" width="37" height="10" viewBox="0 0 37 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M31.225 7.284L30.509 7.9821L31.9052 9.4141L32.6212 8.716L31.225 7.284ZM35 5L35.6981 5.716L36.4325 5L35.6981 4.284L35 5ZM32.6212 1.284L31.9052 0.5859L30.509 2.0179L31.225 2.716L32.6212 1.284ZM32.6212 8.716L35.6981 5.716L34.3019 4.284L31.225 7.284L32.6212 8.716ZM35.6981 4.284L32.6212 1.284L31.225 2.716L34.3019 5.716L35.6981 4.284ZM35 4H0V6H35V4ZM0 6H25V4H0V6Z"></path>
+            </svg>{{ $link_text }}</a></div>
+
+
 
     </div>
 

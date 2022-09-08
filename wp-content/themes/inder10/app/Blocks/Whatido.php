@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Portfolio extends Block
+class Whatido extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class Portfolio extends Block
          *
          * @var string
          */
-        $this->name = __('My Portfolio', 'sage');
+        $this->name = __('What i do', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'portfolio';
+        $this->slug = 'whatido';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple Portfolio block.', 'sage');
+        $this->description = __('A simple What i do block.', 'sage');
 
         /**
          * The block category.
@@ -100,7 +100,7 @@ class Portfolio extends Block
          * @var array
          */
         $this->supports = [
-            'align' => false,
+            'align' => true,
             'align_text' => false,
             'align_content' => false,
             'full_height' => false,
@@ -116,11 +116,17 @@ class Portfolio extends Block
          * @var array
          */
 
+        $this->styles = [];
+
+
         /**
          * The block preview example data.
          *
          * @var array
          */
+
+        $this->example = [];
+
 
         parent::__construct($app);
     }
@@ -133,11 +139,17 @@ class Portfolio extends Block
     public function with()
     {
         return [
+            'image' => $this->image(),
             'title' => $this->title(),
             'subtitle' => $this->subtitle(),
-            'cases' => $this->cases(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
+            'list' => $this->list(),
+            'list_icon' => $this->list_icon(),
+            'list_title' => $this->list_title(),
+            'list_text' => $this->list_text(),
+            'list_text_second' => $this->list_text_second(),
+            'list_inner' => $this->list_inner(),
+            'list_item' => $this->list_item(),
+
         ];
     }
 
@@ -148,68 +160,95 @@ class Portfolio extends Block
      */
     public function fields()
     {
-        $portfolio_page = new FieldsBuilder('portfolio_page');
+        $whatido = new FieldsBuilder('whatido');
 
-        $portfolio_page
+        $whatido
+            ->addImage('image', [
+                'label' => 'Image',
+                'instructions' => '',
+                'wrapper' => [
+                    'width' => '10',
+                    'class' => '',
+                    'id' => '',
+                ],
+                'return_format' => 'id',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
+            ])
             ->addText('title', [
                 'label' => 'Title',
                 'wrapper' => [
-                    'width' => '50',
+                    'width' => '40',
                 ]
             ])
-            ->addText('subtitle', [
-                'label' => 'subTitle',
+            ->addTextarea('subtitle', [
+                'label' => 'SubTitle',
                 'wrapper' => [
                     'width' => '50',
                 ]
             ])
-            ->addRelationship('cases', [
-                'label' => 'Cases',
+            ->addRepeater('list', [
+                'label' => 'List',
                 'instructions' => '',
-                'required' => 0,
                 'wrapper' => [
                     'width' => '',
-                    'class' => '',
-                    'id' => '',
                 ],
-                'post_type' => ['case'],
-                'taxonomy' => [],
-                'filters' => [
-                    0 => 'search',
-                    1 => 'post_type',
-                    2 => 'taxonomy',
-                ],
-                'elements' => '',
-                'min' => '',
-                'max' => '',
-                'return_format' => 'id',
+                'layout' => 'block',
+                'button_label' => '',
             ])
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
+            ->addText('list_icon', [
+                'label' => 'Icon',
                 'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
                 'wrapper' => [
-                    'width' => '50',
+                    'width' => '30',
                     'class' => '',
                     'id' => '',
                 ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
             ])
-            ->addText('link_text', [
-                'label' => 'Button text',
+            ->addText('list_title', [
+                'label' => 'Title',
                 'wrapper' => [
-                    'width' => '50',
+                    'width' => '70',
                 ],
-            ]);
+            ])
+            ->addTextarea('list_text', [
+                'label' => 'Text',
+                'wrapper' => [
+                    'width' => '',
+                ],
+                'rows' => 3,
+            ])
+            ->addTextarea('list_text_second', [
+                'label' => 'Text',
+                'wrapper' => [
+                    'width' => '',
+                ],
+                'rows' => 3,
 
-        return $portfolio_page->build();
+            ])
+
+            ->addRepeater('list_inner', [
+                'label' => 'List',
+                'instructions' => '',
+                'wrapper' => [
+                    'width' => '',
+                ],
+                'layout' => 'block',
+                'button_label' => '',
+            ])
+            ->addTextarea('list_item', [
+                'label' => 'Text',
+                'wrapper' => [
+                    'width' => '',
+                ],
+                'rows' => 3,
+
+            ])
+
+            ->endRepeater();
+
+
+        return $whatido->build();
     }
 
     /**
@@ -217,6 +256,11 @@ class Portfolio extends Block
      *
      * @return array
      */
+    public function image()
+    {
+        return get_field('image');
+    }
+
     public function title()
     {
         return get_field('title');
@@ -227,19 +271,39 @@ class Portfolio extends Block
         return get_field('subtitle');
     }
 
-    public function cases()
+    public function list()
     {
-        return get_field('cases');
+        return get_field('list');
     }
 
-    public function link()
+    public function list_icon()
     {
-        return get_field('link');
+        return get_field('list_icon');
     }
 
-    public function link_text()
+    public function list_title()
     {
-        return get_field('link_text');
+        return get_field('list_title');
+    }
+
+    public function list_text()
+    {
+        return get_field('list_text');
+    }
+
+    public function list_text_second()
+    {
+        return get_field('list_text_second');
+    }
+
+    public function list_inner()
+    {
+        return get_field('list_inner');
+    }
+
+    public function list_item()
+    {
+        return get_field('list_item');
     }
 
     /**
