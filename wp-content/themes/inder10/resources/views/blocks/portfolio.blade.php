@@ -26,12 +26,12 @@
       @foreach ($group as $post)
         @php
           $open_div = $loop->index % 2 === 0 ? '<div class="col-md-5 col-xl-4 offset-xl-3">' : '<div class="col-md-6 col-xl-4 offset-md-1 offset-xl-1">';
-          setup_postdata( $post );
+          // setup_postdata( $post );
           $inner_div = '<article class="thumbnail-modern">';
-          $thumb_id = get_field('case_thumb', $post->ID);
+          $thumb_id = get_field('case_thumb', $post );
         @endphp
 
-        {{-- @dump($loop->iteration) --}}
+        {{-- @dump($post) --}}
 
         @if ($loop->parent->even)
           @php
@@ -46,20 +46,22 @@
 
         {!! $open_div !!}
           {!! $inner_div !!}
-            <a class="thumbnail-img" data-lightgallery="item" href="{{ get_the_post_thumbnail_url( $post->ID, 'full' ) }}">
-            {!! wp_get_attachment_image($thumb_id, 'full') !!}
+            <a class="thumbnail-img" data-lightgallery="item" href="{{ get_the_post_thumbnail_url( $post, 'full' ) }}">
+              @if ($thumb_id)
+                {!! wp_get_attachment_image($thumb_id, 'full') !!}
+              @endif
           </a>
-            <h4 class="thumbnail-title"><a href="#">{!! get_the_title($post->ID) !!}</a></h4>
+            <h4 class="thumbnail-title"><a href="#">{!! get_the_title($post) !!}</a></h4>
           </article>
 
         </div>
 
       @endforeach
+      {{-- @php(wp_reset_postdata()) --}}
 
       </div>
     @endforeach
 
-    @php(wp_reset_postdata())
 
     @endif
 

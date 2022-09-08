@@ -41,11 +41,12 @@
   "require": {
     "php": "^7.4|^8.0",
     "log1x/acf-composer": "^2.0.9",
+    "log1x/crumb": "^1.0",
     "log1x/poet": "^2.0",
-    "roots/acorn": "^2.1",
     "log1x/sage-directives": "^1.1",
     "log1x/sage-svg": "^1.1",
     "mwdelaney/sage-advanced-custom-fields": "^1.6",
+    "roots/acorn": "^2.1",
     "stoutlogic/acf-builder": "^1.12"
   },
   "require-dev": {

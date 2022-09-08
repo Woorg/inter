@@ -91,6 +91,6 @@
 
     <p class="rights text-primary">
       <span>&copy;&nbsp;</span>
-      <span class="copyright-year">{{ date('Y') }}</span><span>.&nbsp;</span><span>{{ get_bloginfo('name') }}</span><span>.&nbsp;</span><span>{!! $copyright !!}</span><span>.&nbsp;</span><a href="privacy-policy.html">Privacy Policy</a></p>
+      <span class="copyright-year">{{ date('Y') }}</span><span>.&nbsp;</span><span>{{ get_bloginfo('name') }}</span><span>.&nbsp;</span><span>{!! $copyright !!}</span><span>.&nbsp;</span><a href="{{ $privacy_link }}">Privacy Policy</a></p>
   </div>
 </footer

@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class About extends Block
+class Aboutpage extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class About extends Block
          *
          * @var string
          */
-        $this->name = __('About me - main', 'sage');
+        $this->name = __('About - page', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'about';
+        $this->slug = 'aboutpage';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple About block.', 'sage');
+        $this->description = __('A simple About Page block.', 'sage');
 
         /**
          * The block category.
@@ -106,10 +106,21 @@ class About extends Block
             'full_height' => false,
             'anchor' => false,
             'mode' => false,
-            'multiple' => false,
+            'multiple' => true,
             'jsx' => true,
         ];
 
+        /**
+         * The block styles.
+         *
+         * @var array
+         */
+
+        /**
+         * The block preview example data.
+         *
+         * @var array
+         */
 
         parent::__construct($app);
     }
@@ -124,13 +135,10 @@ class About extends Block
         return [
             'title' => $this->title(),
             'text' => $this->text(),
-            'subtitle' => $this->subtitle(),
-            'list' => $this->list(),
-            'list_icon' => $this->list_icon(),
-            'list_title' => $this->list_title(),
-            'list_text' => $this->list_text(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
+            'text_second' => $this->text_second(),
+            'image' => $this->image(),
+            'video' => $this->video(),
+            'video_thumb' => $this->video_thumb(),
 
         ];
     }
@@ -142,9 +150,9 @@ class About extends Block
      */
     public function fields()
     {
-        $about = new FieldsBuilder('about');
+        $aboutPage = new FieldsBuilder('about_page');
 
-        $about
+        $aboutPage
             ->addText('title', [
                 'label' => 'Title',
                 'wrapper' => [
@@ -154,74 +162,51 @@ class About extends Block
             ->addTextarea('text', [
                 'label' => 'Text',
                 'wrapper' => [
-                    'width' => '70',
+                    'width' => '35',
                 ],
-                'rows' => '2',
+                'rows' => '3',
                 'new_lines' => '',
             ])
-            ->addText('subtitle', [
-                'label' => 'Subtitle',
+            ->addTextarea('text_second', [
+                'label' => 'Text second',
                 'wrapper' => [
-                    'width' => '30',
+                    'width' => '35',
                 ],
+                'rows' => '3',
+                'new_lines' => '',
             ])
-            ->addRepeater('list', [
-                'label' => 'Services',
+            ->addImage('image', [
+                'label' => 'Image',
                 'instructions' => '',
                 'wrapper' => [
-                    'width' => '70',
-                ],
-                'collapsed' => 'list_title',
-                'layout' => 'block',
-                'button_label' => '',
-            ])
-            ->addText('list_icon', [
-                'label' => 'Icon',
-                'wrapper' => [
                     'width' => '20',
-                ],
-            ])
-            ->addText('list_title', [
-                'label' => 'Title',
-                'wrapper' => [
-                    'width' => '20',
-                ],
-            ])
-            ->addTextarea('list_text', [
-                'label' => 'Text',
-                'wrapper' => [
-                    'width' => '60',
-                ],
-                'rows' => '2',
-            ])
-
-            ->endRepeater()
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
-                'wrapper' => [
-                    'width' => '50',
                     'class' => '',
                     'id' => '',
                 ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
+                'return_format' => 'id',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
             ])
-            ->addText('link_text', [
-                'label' => 'Button text',
+            ->addText('video', [
+                'label' => 'Youtube Video',
                 'wrapper' => [
-                    'width' => '50',
+                    'width' => '60',
+                ]
+            ])
+            ->addImage('video_thumb', [
+                'label' => 'Video thumb',
+                'instructions' => '',
+                'wrapper' => [
+                    'width' => '20',
+                    'class' => '',
+                    'id' => '',
                 ],
+                'return_format' => 'id',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
             ]);
 
-        return $about->build();
+        return $aboutPage->build();
     }
 
     /**
@@ -239,39 +224,24 @@ class About extends Block
         return get_field('text');
     }
 
-    public function subtitle()
+    public function text_second()
     {
-        return get_field('subtitle');
+        return get_field('text_second');
     }
 
-    public function list()
+    public function image()
     {
-        return get_field('list');
+        return get_field('image');
     }
 
-    public function list_icon()
+    public function video()
     {
-        return get_field('list_icon');
+        return get_field('video');
     }
 
-    public function list_title()
+    public function video_thumb()
     {
-        return get_field('list_title');
-    }
-
-    public function list_text()
-    {
-        return get_field('list_text');
-    }
-
-    public function link()
-    {
-        return get_field('link');
-    }
-
-    public function link_text()
-    {
-        return get_field('link_text');
+        return get_field('video_thumb');
     }
 
     /**
@@ -281,7 +251,6 @@ class About extends Block
      */
     public function enqueue()
     {
-
-
+        //
     }
 }

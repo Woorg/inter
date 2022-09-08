@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class About extends Block
+class Portfoliopage extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class About extends Block
          *
          * @var string
          */
-        $this->name = __('About me - main', 'sage');
+        $this->name = __('My Portfolio - page', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'about';
+        $this->slug = 'portfoliopage';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple About block.', 'sage');
+        $this->description = __('A simple Portfoliopage block.', 'sage');
 
         /**
          * The block category.
@@ -106,10 +106,21 @@ class About extends Block
             'full_height' => false,
             'anchor' => false,
             'mode' => false,
-            'multiple' => false,
+            'multiple' => true,
             'jsx' => true,
         ];
 
+        /**
+         * The block styles.
+         *
+         * @var array
+         */
+
+        /**
+         * The block preview example data.
+         *
+         * @var array
+         */
 
         parent::__construct($app);
     }
@@ -123,14 +134,8 @@ class About extends Block
     {
         return [
             'title' => $this->title(),
-            'text' => $this->text(),
             'subtitle' => $this->subtitle(),
-            'list' => $this->list(),
-            'list_icon' => $this->list_icon(),
-            'list_title' => $this->list_title(),
-            'list_text' => $this->list_text(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
+            'cases' => $this->query_cases(),
 
         ];
     }
@@ -142,86 +147,36 @@ class About extends Block
      */
     public function fields()
     {
-        $about = new FieldsBuilder('about');
+        $portfolio = new FieldsBuilder('portfolio');
 
-        $about
+        $portfolio
             ->addText('title', [
                 'label' => 'Title',
                 'wrapper' => [
-                    'width' => '30',
+                    'width' => '50',
                 ]
             ])
-            ->addTextarea('text', [
-                'label' => 'Text',
-                'wrapper' => [
-                    'width' => '70',
-                ],
-                'rows' => '2',
-                'new_lines' => '',
-            ])
             ->addText('subtitle', [
-                'label' => 'Subtitle',
+                'label' => 'subTitle',
                 'wrapper' => [
-                    'width' => '30',
-                ],
+                    'width' => '50',
+                ]
             ])
-            ->addRepeater('list', [
-                'label' => 'Services',
-                'instructions' => '',
-                'wrapper' => [
-                    'width' => '70',
-                ],
-                'collapsed' => 'list_title',
-                'layout' => 'block',
-                'button_label' => '',
-            ])
-            ->addText('list_icon', [
-                'label' => 'Icon',
-                'wrapper' => [
-                    'width' => '20',
-                ],
-            ])
-            ->addText('list_title', [
-                'label' => 'Title',
-                'wrapper' => [
-                    'width' => '20',
-                ],
-            ])
-            ->addTextarea('list_text', [
-                'label' => 'Text',
-                'wrapper' => [
-                    'width' => '60',
-                ],
-                'rows' => '2',
-            ])
-
-            ->endRepeater()
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
+            ->addMessage('message_field', 'message', [
+                'label' => 'Get all from Cases',
                 'instructions' => '',
                 'required' => 0,
                 'conditional_logic' => [],
                 'wrapper' => [
-                    'width' => '50',
+                    'width' => '',
                     'class' => '',
                     'id' => '',
                 ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
-            ])
-            ->addText('link_text', [
-                'label' => 'Button text',
-                'wrapper' => [
-                    'width' => '50',
-                ],
+                'message' => ' ',
+                'esc_html' => 0,
             ]);
 
-        return $about->build();
+        return $portfolio->build();
     }
 
     /**
@@ -234,54 +189,24 @@ class About extends Block
         return get_field('title');
     }
 
-    public function text()
-    {
-        return get_field('text');
-    }
-
     public function subtitle()
     {
         return get_field('subtitle');
     }
 
-    public function list()
+    public function query_cases()
     {
-        return get_field('list');
+        $attrs = [
+            'post_type' => 'case',
+            'posts_per_page' => -1,
+            'orderby' => 'id',
+            'order' => 'ASC',
+            'no_found_rows' => false,
+            'cache_results' => true,
+        ];
+
+        $query = new \WP_Query();
+        return $cases = $query->query($attrs);
     }
 
-    public function list_icon()
-    {
-        return get_field('list_icon');
-    }
-
-    public function list_title()
-    {
-        return get_field('list_title');
-    }
-
-    public function list_text()
-    {
-        return get_field('list_text');
-    }
-
-    public function link()
-    {
-        return get_field('link');
-    }
-
-    public function link_text()
-    {
-        return get_field('link_text');
-    }
-
-    /**
-     * Assets to be enqueued when rendering the block.
-     *
-     * @return void
-     */
-    public function enqueue()
-    {
-
-
-    }
 }

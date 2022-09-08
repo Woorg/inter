@@ -23,65 +23,33 @@
       </div>
 
       @if ($list)
-      <div class="col-md-4 offset-lg-1">
-      @foreach ($list as $index => $item)
+      @foreach ( collect($list)->chunk(3) as $group )
 
-        @php
-          $item_icon = $item['list_icon'];
-          $item_title = $item['list_title'];
-          $item_text = $item['list_text'];
-        @endphp
+        <div class="col-md-4 offset-lg-1">
 
-        @if ($index < 2)
-        <div class="box-service">
-          <div class="box-service-header d-flex align-items-baseline">
-            <div class="icon icon-sm icomoon {{ $item_icon }}"></div>
-            <h4>{{ $item_title }}</h4>
-          </div>
-          <div class="box-service-text">
-            <p class="pe-xl-4">{{ $item_text }}</p>
-          </div>
+          @foreach ( $group as $item )
+
+            @php
+              $item_icon = $item['list_icon'];
+              $item_title = $item['list_title'];
+              $item_text = $item['list_text'];
+              $open_div = $loop->last ? '<div class="box-service box-service-mod">' : '<div class="box-service">';
+            @endphp
+
+            {!! $open_div !!}
+              <div class="box-service-header d-flex align-items-baseline">
+                <div class="icon icon-sm icomoon {{ $item_icon }}"></div>
+                <h4>{{ $item_title }}</h4>
+              </div>
+              <div class="box-service-text">
+                <p class="pe-xl-4">{{ $item_text }}</p>
+              </div>
+            </div>
+
+          @endforeach
+
         </div>
-        @endif
-
-        @if ($index == 2)
-        <div class="box-service box-service-mod">
-          <div class="box-service-header d-flex align-items-baseline">
-            <div class="icon icon-sm icomoon {{ $item_icon }}"></div>
-            <h4>{{ $item_title }}</h4>
-          </div>
-          <div class="box-service-text">
-            <p class="pe-xl-4">{{ $item_text }}</p>
-          </div>
-        </div>
-        @endif
-
-        @endforeach
-
-      </div>
-
-      <div class="col-md-4 offset-lg-1">
-      @foreach ($list as $index => $item)
-        @php
-          $item_icon = $item['list_icon'];
-          $item_title = $item['list_title'];
-          $item_text = $item['list_text'];
-        @endphp
-
-        @if ($index > 2)
-        <div class="box-service">
-          <div class="box-service-header d-flex align-items-baseline">
-            <div class="icon icon-sm icomoon {{ $item_icon }}"></div>
-            <h4>{{ $item_title }}</h4>
-          </div>
-          <div class="box-service-text">
-            <p class="pe-xl-4">{{ $item_text }}</p>
-          </div>
-        </div>
-        @endif
-
       @endforeach
-      </div>
 
       @endif
 

@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class About extends Block
+class Education extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class About extends Block
          *
          * @var string
          */
-        $this->name = __('About me - main', 'sage');
+        $this->name = __('Education', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'about';
+        $this->slug = 'education';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple About block.', 'sage');
+        $this->description = __('A simple Education block.', 'sage');
 
         /**
          * The block category.
@@ -106,10 +106,21 @@ class About extends Block
             'full_height' => false,
             'anchor' => false,
             'mode' => false,
-            'multiple' => false,
+            'multiple' => true,
             'jsx' => true,
         ];
 
+        /**
+         * The block styles.
+         *
+         * @var array
+         */
+
+        /**
+         * The block preview example data.
+         *
+         * @var array
+         */
 
         parent::__construct($app);
     }
@@ -123,14 +134,9 @@ class About extends Block
     {
         return [
             'title' => $this->title(),
-            'text' => $this->text(),
-            'subtitle' => $this->subtitle(),
             'list' => $this->list(),
-            'list_icon' => $this->list_icon(),
             'list_title' => $this->list_title(),
             'list_text' => $this->list_text(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
 
         ];
     }
@@ -142,86 +148,40 @@ class About extends Block
      */
     public function fields()
     {
-        $about = new FieldsBuilder('about');
+        $education = new FieldsBuilder('education');
 
-        $about
+        $education
             ->addText('title', [
                 'label' => 'Title',
                 'wrapper' => [
                     'width' => '30',
                 ]
             ])
-            ->addTextarea('text', [
-                'label' => 'Text',
-                'wrapper' => [
-                    'width' => '70',
-                ],
-                'rows' => '2',
-                'new_lines' => '',
-            ])
-            ->addText('subtitle', [
-                'label' => 'Subtitle',
-                'wrapper' => [
-                    'width' => '30',
-                ],
-            ])
             ->addRepeater('list', [
-                'label' => 'Services',
+                'label' => 'List',
                 'instructions' => '',
                 'wrapper' => [
                     'width' => '70',
                 ],
-                'collapsed' => 'list_title',
                 'layout' => 'block',
                 'button_label' => '',
-            ])
-            ->addText('list_icon', [
-                'label' => 'Icon',
-                'wrapper' => [
-                    'width' => '20',
-                ],
             ])
             ->addText('list_title', [
                 'label' => 'Title',
                 'wrapper' => [
-                    'width' => '20',
+                    'width' => '50',
                 ],
             ])
             ->addTextarea('list_text', [
                 'label' => 'Text',
                 'wrapper' => [
-                    'width' => '60',
-                ],
-                'rows' => '2',
-            ])
-
-            ->endRepeater()
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
-                'wrapper' => [
-                    'width' => '50',
-                    'class' => '',
-                    'id' => '',
-                ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
-            ])
-            ->addText('link_text', [
-                'label' => 'Button text',
-                'wrapper' => [
                     'width' => '50',
                 ],
+                'rows' => '1',
+                'new_lines' => '',
             ]);
 
-        return $about->build();
+        return $education->build();
     }
 
     /**
@@ -234,24 +194,9 @@ class About extends Block
         return get_field('title');
     }
 
-    public function text()
-    {
-        return get_field('text');
-    }
-
-    public function subtitle()
-    {
-        return get_field('subtitle');
-    }
-
     public function list()
     {
         return get_field('list');
-    }
-
-    public function list_icon()
-    {
-        return get_field('list_icon');
     }
 
     public function list_title()
@@ -264,16 +209,6 @@ class About extends Block
         return get_field('list_text');
     }
 
-    public function link()
-    {
-        return get_field('link');
-    }
-
-    public function link_text()
-    {
-        return get_field('link_text');
-    }
-
     /**
      * Assets to be enqueued when rendering the block.
      *
@@ -281,7 +216,6 @@ class About extends Block
      */
     public function enqueue()
     {
-
-
+        //
     }
 }

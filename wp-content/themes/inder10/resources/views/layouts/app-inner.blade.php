@@ -1,6 +1,7 @@
 @include('sections.header-inner')
 
-    @if (! is_front_page())
+  {{-- <main id="main" class="main"> --}}
+
     <!-- Breadcrumbs-->
     <div class="section breadcrumbs-custom">
       <div class="container">
@@ -11,9 +12,10 @@
         @endphp
       </div>
     </div>
-    @endif
 
 
     @yield('content')
 
-@include('sections.footer')
+  {{-- </main> --}}
+
+  @include('sections.footer')

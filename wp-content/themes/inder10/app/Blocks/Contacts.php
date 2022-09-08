@@ -6,7 +6,7 @@ use Log1x\AcfComposer\Block;
 use Roots\Acorn\Application;
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
-class Portfolio extends Block
+class Contacts extends Block
 {
     public function __construct(Application $app)
     {
@@ -15,21 +15,21 @@ class Portfolio extends Block
          *
          * @var string
          */
-        $this->name = __('My Portfolio', 'sage');
+        $this->name = __('Contacts', 'sage');
 
         /**
          * The block slug.
          *
          * @var string
          */
-        $this->slug = 'portfolio';
+        $this->slug = 'contacts';
 
         /**
          * The block description.
          *
          * @var string
          */
-        $this->description = __('A simple Portfolio block.', 'sage');
+        $this->description = __('A simple Contacts block.', 'sage');
 
         /**
          * The block category.
@@ -152,11 +152,9 @@ class Portfolio extends Block
     {
         return [
             'title' => $this->title(),
-            'subtitle' => $this->subtitle(),
-            'cases' => $this->cases(),
-            'link' => $this->link(),
-            'link_text' => $this->link_text(),
-
+            'form' => $this->form(),
+            'image' => $this->image(),
+            'address' => $this->address(),
         ];
     }
 
@@ -167,110 +165,43 @@ class Portfolio extends Block
      */
     public function fields()
     {
-        $portfolio_page = new FieldsBuilder('portfolio_page');
+        $contacts = new FieldsBuilder('contacts');
 
-        $portfolio_page
+        $contacts
             ->addText('title', [
                 'label' => 'Title',
                 'wrapper' => [
-                    'width' => '50',
-                ]
+                    'width' => '20',
+                ],
             ])
-            ->addText('subtitle', [
-                'label' => 'subTitle',
+            ->addText('form', [
+                'label' => 'Form',
                 'wrapper' => [
-                    'width' => '50',
-                ]
+                    'width' => '40',
+                ],
             ])
-            // ->addRepeater('list', [
-            //     'label' => 'Services',
-            //     'instructions' => '',
-            //     'wrapper' => [
-            //         'width' => '',
-            //     ],
-            //     'layout' => 'block',
-            //     'button_label' => '',
-            // ])
-            // ->addText('list_title', [
-            //     'label' => 'Title',
-            //     'wrapper' => [
-            //         'width' => '20',
-            //     ],
-            // ])
-
-            ->addRelationship('cases', [
-                'label' => 'Cases',
+            ->addImage('image', [
+                'label' => 'Image',
                 'instructions' => '',
-                'required' => 0,
                 'wrapper' => [
-                    'width' => '',
+                    'width' => '10',
                     'class' => '',
                     'id' => '',
                 ],
-                'post_type' => ['case'],
-                'taxonomy' => [],
-                'filters' => [
-                    0 => 'search',
-                    1 => 'post_type',
-                    2 => 'taxonomy',
-                ],
-                'elements' => '',
-                'min' => '',
-                'max' => '',
-                'return_format' => 'object',
+                'return_format' => 'id',
+                'preview_size' => 'thumbnail',
+                'library' => 'all',
             ])
-
-            // ->addImage('list_thumb', [
-            //     'label' => 'Thumb',
-            //     'instructions' => '',
-            //     'wrapper' => [
-            //         'width' => '',
-            //         'class' => '',
-            //         'id' => '',
-            //     ],
-            //     'return_format' => 'id',
-            //     'preview_size' => 'thumbnail',
-            //     'library' => 'all',
-            // ])
-            // ->addImage('list_image', [
-            //     'label' => 'Image',
-            //     'instructions' => '',
-            //     'wrapper' => [
-            //         'width' => '',
-            //         'class' => '',
-            //         'id' => '',
-            //     ],
-            //     'return_format' => 'id',
-            //     'preview_size' => 'thumbnail',
-            //     'library' => 'all',
-            // ])
-            // ->endRepeater()
-
-            ->addPageLink('link', [
-                'label' => 'Button Link',
-                'type' => 'page_link',
-                'instructions' => '',
-                'required' => 0,
-                'conditional_logic' => [],
+            ->addTextarea('address', [
+                'label' => 'Address',
                 'wrapper' => [
-                    'width' => '50',
-                    'class' => '',
-                    'id' => '',
+                    'width' => '30',
                 ],
-                'post_type' => [],
-                'taxonomy' => [],
-                'allow_null' => 0,
-                'allow_archives' => 1,
-                'multiple' => 0,
-            ])
-            ->addText('link_text', [
-                'label' => 'Button text',
-                'wrapper' => [
-                    'width' => '50',
-                ],
+                'rows' => 2
             ]);
 
-        return $portfolio_page->build();
+
+        return $contacts->build();
     }
 
     /**
@@ -283,24 +214,19 @@ class Portfolio extends Block
         return get_field('title');
     }
 
-    public function subtitle()
+    public function form()
     {
-        return get_field('subtitle');
+        return get_field('form');
     }
 
-    public function cases()
+    public function image()
     {
-        return get_field('cases');
+        return get_field('image');
     }
 
-    public function link()
+    public function address()
     {
-        return get_field('link');
-    }
-
-    public function link_text()
-    {
-        return get_field('link_text');
+        return get_field('address');
     }
 
     /**
