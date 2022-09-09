@@ -25,4 +25,31 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     // formValidate();
 
+    const form = document.querySelector('.rd-mailform');
+    const formElements = form.querySelectorAll('.wpcf7-form-control');
+    const formName = form.querySelector('#contact-name');
+    const formEmail = form.querySelector('#contact-email');
+    const formPhone = form.querySelector('#contact-phone');
+    const formMessage = form.querySelector('#contact-message');
+
+
+    // form.removeAttribute('novalidate');
+    form.setAttribute('data-form-output', 'form-output-global');
+    form.setAttribute('data-form-type', 'contact');
+
+    formName.setAttribute('data-constraints', '@Required');
+    formEmail.setAttribute('data-constraints', '@Required @Email');
+    formPhone.setAttribute('data-constraints', '@Required @Numeric');
+    formMessage.setAttribute('data-constraints', '@Required');
+
+    // formElements.forEach( (element) => {
+
+    //     console.log(element);
+    //     console.log(formName);
+
+    //     element.setAttribute('data-constraints', 'required');
+    // });
+
+
+
 });

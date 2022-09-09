@@ -1,1 +1,1 @@
-:root{--has-fgp:initial;--parent-has-fgp:initial}pseudo{position:relative}pseudo:after,pseudo:before{content:" ";position:absolute;top:0;left:0}
+pseudo{position:relative}pseudo:after,pseudo:before{content:" ";position:absolute;top:0;left:0}
