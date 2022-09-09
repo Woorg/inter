@@ -8,8 +8,24 @@
 
 <header class="section page-header">
   <!--RD Navbar-->
-  <div class="rd-navbar-wrap rd-navbar-wrap-absolute">
-    <nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-md-device-layout="rd-navbar-fixed" data-lg-device-layout="rd-navbar-fixed" data-xl-device-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="46px" data-xl-stick-up-offset="46px" data-xxl-stick-up-offset="46px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+  <div class="rd-navbar-wrap {{ $nav_class = is_front_page() ? 'rd-navbar-wrap-absolute' : '' }}">
+    <nav
+      class="rd-navbar"
+      data-layout="rd-navbar-fixed"
+      data-sm-layout="rd-navbar-fixed"
+      data-md-layout="rd-navbar-fixed"
+      data-lg-layout="rd-navbar-fixed"
+      data-xl-layout="rd-navbar-static"
+      data-md-device-layout="rd-navbar-fixed"
+      data-lg-device-layout="rd-navbar-fixed"
+      data-xl-device-layout="rd-navbar-static"
+      data-xxl-device-layout="rd-navbar-static"
+      data-lg-stick-up-offset="46px"
+      data-xl-stick-up-offset="46px"
+      data-xxl-stick-up-offset="46px"
+      data-lg-stick-up="true"
+      data-xl-stick-up="true"
+      data-xxl-stick-up="true">
       <div class="rd-navbar-main-outer">
         <div class="rd-navbar-main">
           <!--RD Navbar Panel-->
@@ -52,6 +68,7 @@
               </div>
 
             </div>
+
           </div>
 
           @if (has_nav_menu('primary_navigation'))
@@ -64,7 +81,6 @@
             </svg>
           </div>
 
-
           <div class="rd-navbar-nav-wrap">
             <div class="rd-navbar-close-toggle mdi mdi-close" data-multitoggle=".rd-navbar-nav-wrap"><span></span></div>
             <div class="rd-navbar-nav-wrapper">
@@ -75,7 +91,6 @@
                   'container' => false,
                   'echo' => false
                 ]) !!}
-
               </div>
             </div>
           </div>

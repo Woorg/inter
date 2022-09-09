@@ -12,7 +12,7 @@ class themeoptions extends Field
      *
      * @var string
      */
-    public $name = 'Настройки темы';
+    public $name = 'Theme settings';
 
     /**
      * The option page menu slug.
@@ -26,7 +26,7 @@ class themeoptions extends Field
      *
      * @var string
      */
-    public $title = 'Настройки темы | Theme Options';
+    public $title = 'Theme settings | Theme Options';
 
     /**
      * The option page permission capability.
